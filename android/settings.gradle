@@ -1,6 +1,17 @@
-pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
-plugins { id("com.facebook.react.settings") }
-extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
-rootProject.name = 'todoListApp'
-include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+        maven {
+            url = uri("../node_modules/react-native/android")
+        }
+    }
+    includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+
+plugins {
+    id("com.facebook.react.settings") version "0.76.5" // Ensure version matches your React Native version
+}
+
+rootProject.name = "todoListApp"
+include(":app")
