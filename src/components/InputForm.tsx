@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { TodoContext } from '../contexts/TodoContext';
 import { useDispatch } from 'react-redux';
 import { addOnTodo } from '../store/actions';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
 
 
 type InputFormProps = {
@@ -14,8 +15,7 @@ const InputForm: React.FC<InputFormProps> = ({ onAddTodo }) => {
     const [dueDate, setDueDate] = useState('');
     const [description, setDescription] = useState('');
     const { addTodo } = useContext(TodoContext);
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = () => {
 
         if (title.trim()) {
             onAddTodo(title.trim(), description.trim(), dueDate);
@@ -28,36 +28,40 @@ const InputForm: React.FC<InputFormProps> = ({ onAddTodo }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={styles.form}>
-            <input
-                type="text"
+
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <TextInput
+                testID='title'
                 value={title}
                 onChange={(e: any) => setTitle(e.target.value)}
                 placeholder="Add a task"
-                style={styles.input}
+                placeholderTextColor={'lightgray'}
+                style={styles1.textInput}
             />
-            <input
-                type="text"
+            <TextInput
+                testID='desc'
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)}
                 placeholder="Description (optional)"
+                placeholderTextColor={'lightgray'}
+                style={styles1.textInput}
             />
-            <input
-                type="date"
+            <TextInput
+                testID='due-date'
                 placeholder='due date'
-                style={{ marginLeft: 5 }}
                 value={dueDate}
                 onChange={(e: any) => setDueDate(e.target.value)}
+                placeholderTextColor={'lightgray'}
+                style={styles1.textInput}
             />
 
-            <button type="submit" style={{ backgroundColor: 'lightblue', borderRadius: 5, marginLeft: 10 }}>Add to list</button>
-        </form>
-
+            <Button testID='add-btn' title="Add to list" onPress={() => handleSubmit()} />
+        </View>
     );
 };
 
-const styles = {
-    form: { display: 'flex', margin: '10px 0' },
-    input: { flex: 1, padding: '8px', marginRight: '10px' },
-};
+const styles1 = StyleSheet.create({
+    textInput: { borderColor: 'gray', borderWidth: 1, marginRight: 5, borderRadius: 5, paddingHorizontal: 10 }
+});
+
 export default InputForm;

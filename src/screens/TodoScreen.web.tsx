@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import InputForm from '../components/InputForm';
+import InputForm from '../components/InputForm.web';
 import { TodoContext } from '../contexts/TodoContext';
 import { AuthContext } from '../contexts/AuthContext';
-import TodoList from '../components/TodoList';
+import TodoList from '../components/TodoList.web';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TodoScreen: React.FC = () => {

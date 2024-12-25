@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTodoContext } from '../contexts/TodoContext';
 import EditForm from './EditForm.web';
 import { RootState } from '../store';
@@ -28,11 +28,10 @@ const TodoList: React.FC = () => {
         dispatch(sortTodos(criteria));
     };
 
-
-    useEffect(() => {
-        const load = async () => {
+    const memoizedLoadTodos = useMemo(() => {
+        return async () => {
             try {
-                const storedTodos = await loadTodos()
+                const storedTodos = await loadTodos();
                 if (storedTodos) {
                     dispatch(setTodos(storedTodos));
                 }
@@ -40,12 +39,15 @@ const TodoList: React.FC = () => {
                 console.error('Error loading todos from AsyncStorage', error);
             }
         };
-
-        load();
     }, [dispatch]);
+
+    useEffect(() => {
+        memoizedLoadTodos();
+    }, [memoizedLoadTodos]);
+
     return (
         <div>
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 20, marginTop: 20 }}>
                 <label htmlFor="sortCriteria" style={{ fontWeight: 700 }}>Sort by:</label>
                 <select
                     id="sortCriteria"
@@ -86,6 +88,7 @@ const TodoList: React.FC = () => {
                 )
             )}
         </div>
+
     );
 };
 

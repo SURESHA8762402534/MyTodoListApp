@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTodoContext } from '../contexts/TodoContext';
-import { Alert, } from 'react-native';
+import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { editTodoAction } from '../store/actions';
 
@@ -25,8 +25,7 @@ const EditForm: React.FC<EditFormProps> = ({
     const [dueDate, setDueDate] = useState(initialDueDate || '');
     const dispatch = useDispatch();
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         if (!title.trim()) {
             Alert.alert('Task Title is required!');
             return;
@@ -38,38 +37,45 @@ const EditForm: React.FC<EditFormProps> = ({
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <TextInput
+                testID='title-edit'
                 value={title}
                 onChange={(e: any) => setTitle(e.target.value)}
                 placeholder="Task Title"
-                required
+                placeholderTextColor={'lightgray'}
+                style={styles.textInput}
             />
-            <input
-                type="text"
-                style={{ marginLeft: 5 }}
+            <TextInput
+                testID='desc-edi'
                 value={description}
                 onChange={(e: any) => setDescription(e.target.value)}
                 placeholder="Description (optional)"
+                placeholderTextColor={'lightgray'}
+                style={styles.textInput}
             />
-            <input
-                type="date"
+            <TextInput
+                testID='due-edit'
                 placeholder='due date'
-                style={{ marginLeft: 5 }}
                 value={dueDate}
                 onChange={(e: any) => setDueDate(e.target.value)}
+                placeholderTextColor={'lightgray'}
+                style={styles.textInput}
             />
-            <button type="submit" style={{ margin: 5, backgroundColor: 'lightblue' }}>Save</button>
-            <button type="button" onClick={onCancel}>
-                Cancel
-            </button>
-        </form>
-
+            <View style={{ flexDirection: 'row', width: 130, justifyContent: 'space-between', }}>
+                <Button testID='save-btn' title='Save' onPress={() => handleSubmit()} />
+                <Button testID='cancel-btn' title='Cancel' onPress={onCancel} />
+            </View>
+        </View>
 
 
     );
 };
 
+const styles = StyleSheet.create({
+    form: { display: 'flex', margin: 10 },
+    input: { flex: 1, padding: 8, marginRight: 10 },
+    textInput: { borderColor: 'gray', borderWidth: 1, marginRight: 5, borderRadius: 5, paddingHorizontal: 10 }
+});
 
 export default EditForm;
