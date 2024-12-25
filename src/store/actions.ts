@@ -17,12 +17,12 @@ export const addOnTodo = (title: string, description: string, dueDate: string) =
   },
 });
 
-export const editTodo = (id: number, updatedTodo: Partial<Todo>) => ({
+export const editTodoAction = (id: number, updatedTodo: Partial<Todo>) => ({
   type: EDIT_TODO,
   payload: { id, updatedTodo },
 });
 
-export const deleteTodo = (id: number) => ({
+export const deleteTodoAction = (id: number) => ({
   type: DELETE_TODO,
   payload: id,
 });

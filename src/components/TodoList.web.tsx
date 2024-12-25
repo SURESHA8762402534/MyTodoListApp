@@ -3,7 +3,7 @@ import { useTodoContext } from '../contexts/TodoContext';
 import EditForm from './EditForm.web';
 import { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTodos, sortTodos } from '../store/actions';
+import { deleteTodoAction, setTodos, sortTodos } from '../store/actions';
 import { loadTodos } from '../utils/storage';
 
 const TodoList: React.FC = () => {
@@ -81,7 +81,7 @@ const TodoList: React.FC = () => {
                         <p>{todo.dueDate && <b>Due date:</b>} {todo.dueDate}</p>
                         <p>{todo.createdAt && <b>Created at:</b>} {todo.createdAt}</p>
                         <button style={{ marginRight: 20, backgroundColor: 'lightseagreen', borderRadius: 10 }} onClick={() => setEditingTodoId(todo.id)}>Edit</button>
-                        <button style={{ backgroundColor: 'lightcoral', borderRadius: 10 }} onClick={() => deleteTodo(todo.id)}>Delete</button>
+                        <button style={{ backgroundColor: 'lightcoral', borderRadius: 10 }} onClick={() => { deleteTodo(todo.id); dispatch(deleteTodoAction(todo.id)) }}>Delete</button>
                     </div>
                 )
             )}

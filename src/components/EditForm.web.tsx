@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTodoContext } from '../contexts/TodoContext';
 import { Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { editTodoAction } from '../store/actions';
 
 interface EditFormProps {
     todoId: number;
@@ -21,6 +23,7 @@ const EditForm: React.FC<EditFormProps> = ({
     const [title, setTitle] = useState(initialTitle);
     const [description, setDescription] = useState(initialDescription || '');
     const [dueDate, setDueDate] = useState(initialDueDate || '');
+    const dispatch = useDispatch();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,6 +33,7 @@ const EditForm: React.FC<EditFormProps> = ({
         }
 
         editTodo(todoId, { title, description, dueDate });
+        dispatch(editTodoAction(todoId, { title, description, dueDate }))
         onCancel();
     };
 
