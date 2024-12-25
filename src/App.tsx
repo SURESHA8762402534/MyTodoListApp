@@ -1,18 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import LoginScreen from './screens/LoginScreen';
+import TodoScreen from './screens/TodoScreen';
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
+import { TodoProvider } from './contexts/TodoContext';
 
-const App = () => {
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+const App: React.FC = () => {
   return (
-    <View>
-      <Text style={{color:'black', fontSize:20}}> hello world</Text>
-    </View>
-  )
-}
+    <Provider store={store}>
+      <AuthProvider>
+        <AuthContext.Consumer>
+          {({ isAuthenticated }) => (isAuthenticated ? <TodoProvider><TodoScreen /></TodoProvider> : <LoginScreen />)}
+        </AuthContext.Consumer>
+      </AuthProvider>
+    </Provider>
+  );
+};
 
-export default App
+export default App;

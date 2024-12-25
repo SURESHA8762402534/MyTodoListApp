@@ -10,7 +10,7 @@ pluginManagement {
 }
 
 plugins {
-    id("com.facebook.react.settings") version "0.76.5" // Ensure version matches your React Native version
+    id("com.facebook.react.settings") 
 }
 
 rootProject.name = "todoListApp"
