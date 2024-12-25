@@ -1,9 +1,9 @@
 This is a Todo application built using react-native for mobile and web
 
-NOTE: since due my system (personal laptop) limitations, I am not able to work for mobile devices. but still utilized some of basic react native components in the screen.
+NOTE: Due my system (personal laptop) limitations, I am not able to test my code for mobile devices.
 
 -- completed the given task as per the requirements given the documentation.
--- since i am not able to work for mobile implemented todo operation for web using both redux and context
+-- even though i am not able to test the mobile code in my system, i have written code for both web and mobile. and i hope that the mobile code will also run, if we run the code in android studio or xcode
 
 how to run the app?
 
