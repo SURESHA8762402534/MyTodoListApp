@@ -3,11 +3,11 @@ import { useTodoContext } from '../contexts/TodoContext';
 import EditForm from './EditForm.web';
 import { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodoAction, setTodos, sortTodos } from '../store/actions';
+import { deleteTodoAction, setTodos, sortTodos, toggleTodoAction } from '../store/actions';
 import { loadTodos } from '../utils/storage';
 
 const TodoList: React.FC = () => {
-    const { deleteTodo, } = useTodoContext();
+    const { deleteTodo, toggleComplete } = useTodoContext();
     const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
 
     //Sorting using context
@@ -83,11 +83,12 @@ const TodoList: React.FC = () => {
                         <p>{todo.dueDate && <b>Due date:</b>} {todo.dueDate}</p>
                         <p>{todo.createdAt && <b>Created at:</b>} {todo.createdAt}</p>
                         <button style={{ marginRight: 20, backgroundColor: 'lightseagreen', borderRadius: 10 }} onClick={() => setEditingTodoId(todo.id)}>Edit</button>
-                        <button style={{ backgroundColor: 'lightcoral', borderRadius: 10 }} onClick={() => { deleteTodo(todo.id); dispatch(deleteTodoAction(todo.id)) }}>Delete</button>
+                        <button style={{ marginRight: 20, backgroundColor: 'lightcoral', borderRadius: 10 }} onClick={() => { deleteTodo(todo.id); dispatch(deleteTodoAction(todo.id)) }}>Delete</button>
+                        <button style={{ backgroundColor: todo.completed ? 'lightgreen' : 'lightblue', borderRadius: 10 }} onClick={() => { toggleComplete(todo.id); dispatch(toggleTodoAction(todo.id)) }}>{todo.completed ? 'Completed' : 'Pending'}</button>
                     </div>
                 )
             )}
-        </div>
+        </div >
 
     );
 };

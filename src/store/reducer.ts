@@ -5,6 +5,7 @@ import {
     SET_TODOS,
     SORT_TODOS,
     Todo,
+    TOGGLE_TODO,
   } from './actions';
 
   
@@ -44,6 +45,13 @@ const loadInitialState = (): Todo[] => {
               ...state,
               todos: state.todos.filter((todo) => todo.id !== action.payload),
             };
+
+            case TOGGLE_TODO:
+            return {
+              ...state,
+             todos: state.todos.map((todo) =>
+                todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo
+            )};
   
       case SORT_TODOS:
         return {
